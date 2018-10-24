@@ -3,7 +3,8 @@
 //
 
 #pragma once
-
+#include<string>
+using namespace std;
 
 // CMFCblackDlg ¶Ô»°¿ò
 class CMFCblackDlg : public CDialogEx
@@ -44,4 +45,5 @@ public:
 	afx_msg void OnBnClickedButton2();
 	CString m_cstr3;
 	int Remainder;
+	string m_temp;
 };

@@ -113,8 +113,10 @@ BOOL CMFCblackDlg::OnInitDialog()
 	const char* number;
 	opXML  opx2("configurationfile.xml");
 	opx2.QueryNode_Text("bzeng2", number);
-	Remainder = atoi(number);
-	sycs = number;
+	m_temp =number;
+	string str1(m_temp.substr(1, 3));
+	Remainder = atoi(str1.c_str());
+	sycs.Format(_T("%d"), Remainder);
 	if (Remainder<=0)
 	{
 		GetDlgItem(IDC_BUTTON1)->EnableWindow(FALSE);
@@ -446,7 +448,19 @@ void CMFCblackDlg::OnBnClickedButton1()
 		opXML  opx("configurationfile.xml");
 		string m_str = opx.numtoString(Remainder);
 		sycs.Format(_T("%d"), Remainder);
-		opx.ModifyNode("bzeng2", m_str);
+		if (Remainder>=10&&Remainder<100)
+		{
+			m_temp.replace(2, 2, m_str);
+		}
+		if (Remainder>=100&&Remainder<999)
+		{
+			m_temp.replace(1, 3, m_str);
+		}
+		if (Remainder<10)
+		{
+			m_temp.replace(3, 1, m_str);
+		}
+		opx.ModifyNode("bzeng2", m_temp);
 		opx.SaveFile();
 		GetDlgItem(IDC_STATIC11)->SetWindowText(sycs);
 	}
@@ -454,7 +468,8 @@ void CMFCblackDlg::OnBnClickedButton1()
 	{
 		opXML  opx("configurationfile.xml");
 		string m_str = opx.numtoString(0);
-		opx.ModifyNode("sycs", m_str);
+		m_temp.replace(3, 1, m_str);
+		opx.ModifyNode("sycs", m_temp);
 		opx.SaveFile();
 	}
 	GetDlgItem(IDC_BUTTON1)->EnableWindow(FALSE);
