@@ -448,17 +448,19 @@ void CMFCblackDlg::OnBnClickedButton1()
 		opXML  opx("configurationfile.xml");
 		string m_str = opx.numtoString(Remainder);
 		sycs.Format(_T("%d"), Remainder);
+		if (Remainder < 10)
+		{
+			m_temp.replace(1, 2, "00");
+			m_temp.replace(3, 1, m_str);
+		}
 		if (Remainder>=10&&Remainder<100)
 		{
+			m_temp.replace(1, 1, "0");
 			m_temp.replace(2, 2, m_str);
 		}
 		if (Remainder>=100&&Remainder<999)
 		{
 			m_temp.replace(1, 3, m_str);
-		}
-		if (Remainder<10)
-		{
-			m_temp.replace(3, 1, m_str);
 		}
 		opx.ModifyNode("bzeng2", m_temp);
 		opx.SaveFile();
