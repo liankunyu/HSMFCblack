@@ -274,7 +274,7 @@ void CMFCblackDlg::OnBnClickedButton1()
 		return;
 	}
 	GetDlgItem(IDC_EDIT4)->GetWindowText(str);
-	if (str.Trim().GetLength() != 8)
+	if (str.Trim().GetLength() != 8)  //判断长度是否有错
 	{
 		MessageBox(L"长度错误！");
 		return;
@@ -462,7 +462,7 @@ void CMFCblackDlg::OnBnClickedButton1()
 		{
 			m_temp.replace(1, 3, m_str);
 		}
-		opx.ModifyNode("bzeng2", m_temp);
+		opx.ModifyNode("bzeng2", m_temp);//保存到XML文件
 		opx.SaveFile();
 		GetDlgItem(IDC_STATIC11)->SetWindowText(sycs);
 	}
@@ -470,6 +470,7 @@ void CMFCblackDlg::OnBnClickedButton1()
 	{
 		opXML  opx("configurationfile.xml");
 		string m_str = opx.numtoString(0);
+		m_temp.replace(1, 2, "00");
 		m_temp.replace(3, 1, m_str);
 		opx.ModifyNode("sycs", m_temp);
 		opx.SaveFile();
